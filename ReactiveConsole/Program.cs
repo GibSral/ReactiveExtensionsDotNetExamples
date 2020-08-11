@@ -11,6 +11,7 @@ namespace ReactiveConsole
     {
         public static void Main(string[] args)
         {
+            PublishAndConnectExample();
             Console.ReadKey();
         }
 
@@ -104,6 +105,16 @@ namespace ReactiveConsole
             Console.ReadKey();
             clockSubscription.Dispose();
             Console.ReadKey();
+        }
+
+        private static void PublishAndConnectExample()
+        {
+            var hotObservable = Observable.Interval(TimeSpan.FromSeconds(1)).Publish();
+            hotObservable.Dump("hot observable 0");
+            hotObservable.Dump("hot observable 1");
+            hotObservable.Dump("hot observable 2");
+            Console.ReadKey();
+            hotObservable.Connect();
         }
     }
 }
