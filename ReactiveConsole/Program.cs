@@ -1,15 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reactive.Concurrency;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace ReactiveConsole
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            SubjectExample();
+        }
+
+        private static void SubjectExample()
+        {
+            var input = new Subject<string>();
+            input.Dump("input");
+            while (true)
+            {
+                var readLine = Console.ReadLine();
+                if (readLine.Equals("exit"))
+                {
+                    input.OnCompleted();
+                    break;
+                }
+
+                if (readLine.Equals("error"))
+                {
+                    input.OnError(new InvalidOperationException("Ich glaube nicht Tim"));
+                }
+                else
+                {
+                    input.OnNext(readLine);
+                }
+            }
+
+            Console.WriteLine("Exited");
+            Console.ReadKey();
+        }
+
+        private static void ReactiveClockExample()
+        {
+            var clockSubscription = ReactiveClock.Start(Scheduler.Default).Dump("clock");
+            Console.ReadKey();
+            clockSubscription.Dispose();
+            Console.ReadKey();
         }
     }
 }

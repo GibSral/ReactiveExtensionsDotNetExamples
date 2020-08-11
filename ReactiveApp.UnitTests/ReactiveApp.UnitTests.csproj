@@ -54,5 +54,16 @@
       <Version>2.4.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
+      <Project>{05766285-132f-4353-8e12-c8838ac04be9}</Project>
+      <Name>ReactiveApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReactiveConsole\ReactiveConsole.csproj">
+      <Project>{c466cf4b-1a1c-4cd6-9f0e-9f1cc40edb62}</Project>
+      <Name>ReactiveConsole</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
