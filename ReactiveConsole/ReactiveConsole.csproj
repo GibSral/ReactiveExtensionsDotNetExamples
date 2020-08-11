@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassWithAsyncMethod.cs" />
     <Compile Include="ClassWithEvent.cs" />
     <Compile Include="ReactiveClock.cs" />
     <Compile Include="Operators.cs" />
