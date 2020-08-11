@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -11,7 +12,15 @@ namespace ReactiveConsole
     {
         public static void Main(string[] args)
         {
+            EnumerableAsObservableExample();
             Console.ReadKey();
+        }
+
+        private static void EnumerableAsObservableExample()
+        {
+            Enumerable.Range(0, 100)
+                .ToObservable()
+                .Dump("enumerable as observable");
         }
 
         private static void SubjectExample()
@@ -123,6 +132,22 @@ namespace ReactiveConsole
             hotObservable.Connect();
             Thread.Sleep(3000);
             hotObservable.Dump("hot observable 2");
+        }
+
+        private static void OwnOperatorExample()
+        {
+            var input = new Subject<char>();
+            input.Tokenize().Dump("own tokenizer");
+            while (true)
+            {
+                var key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Escape)
+                {
+                    break;
+                }
+
+                input.OnNext(key.KeyChar);
+            }
         }
     }
 }
