@@ -11,7 +11,6 @@ namespace ReactiveConsole
     {
         public static void Main(string[] args)
         {
-            PublishAndConnectExample();
             Console.ReadKey();
         }
 
@@ -105,6 +104,14 @@ namespace ReactiveConsole
             Console.ReadKey();
             clockSubscription.Dispose();
             Console.ReadKey();
+        }
+
+        private static void ColdObservableExample()
+        {
+            var timer = Observable.Interval(TimeSpan.FromSeconds(1));
+            timer.Dump("timer 0");
+            Console.ReadKey();
+            timer.Dump("timer 1");
         }
 
         private static void PublishAndConnectExample()
