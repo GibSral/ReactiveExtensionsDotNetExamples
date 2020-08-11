@@ -112,9 +112,10 @@ namespace ReactiveConsole
             var hotObservable = Observable.Interval(TimeSpan.FromSeconds(1)).Publish();
             hotObservable.Dump("hot observable 0");
             hotObservable.Dump("hot observable 1");
-            hotObservable.Dump("hot observable 2");
             Console.ReadKey();
             hotObservable.Connect();
+            Thread.Sleep(3000);
+            hotObservable.Dump("hot observable 2");
         }
     }
 }
