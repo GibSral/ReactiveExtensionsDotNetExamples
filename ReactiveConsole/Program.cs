@@ -11,7 +11,6 @@ namespace ReactiveConsole
     {
         public static void Main(string[] args)
         {
-            AsyncToObservableWithExceptionExample();
             Console.ReadKey();
         }
 
