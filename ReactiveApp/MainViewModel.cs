@@ -21,7 +21,9 @@ namespace ReactiveApp
             {
                 _currentQuerySubscription.Dispose();
                 QueryResults.Clear();
-                _currentQuerySubscription = _someService.ExecuteSomeQuery().ObserveOn(_mainThreadScheduler).Subscribe(it => QueryResults.Add(it));
+                _currentQuerySubscription = _someService.ExecuteSomeQuery()
+                    .ObserveOn(_mainThreadScheduler)
+                    .Subscribe(it => QueryResults.Add(it));
             });
         }
 

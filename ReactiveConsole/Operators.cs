@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 
 namespace ReactiveConsole
@@ -13,7 +15,6 @@ namespace ReactiveConsole
         public static IObservable<string> Tokenize(this IObservable<char> input) => Observable.Create<string>(observer =>
         {
             var current = string.Empty;
-
             return input.Subscribe(it =>
             {
                 if (it == ';')
@@ -28,5 +29,17 @@ namespace ReactiveConsole
                 }
             });
         });
+
+        public static IObservable<T> MyToObservable<T>(this IEnumerable<T> enumerable)
+        {
+            return Observable.Create<T>(observer =>
+            {
+                foreach (var item in enumerable)
+                {
+                    observer.OnNext(item);
+                }
+                return Disposable.Empty;
+            });
+        }
     }
 }

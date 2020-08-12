@@ -5,6 +5,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
+using System.Windows.Forms.VisualStyles;
 
 namespace ReactiveConsole
 {
@@ -12,15 +13,24 @@ namespace ReactiveConsole
     {
         public static void Main(string[] args)
         {
-            EnumerableAsObservableExample();
+            OwnOperatorExample();
             Console.ReadKey();
         }
 
         private static void EnumerableAsObservableExample()
         {
-            Enumerable.Range(0, 100)
-                .ToObservable()
-                .Dump("enumerable as observable");
+            var observable = Enumerable.Range(0, 100)
+                .ToObservable();
+            observable
+                .Subscribe(
+                    it => Console.WriteLine($"{it}"),
+                    ex => Console.WriteLine($"{ex}"),
+                    () => Console.WriteLine("completed"));
+            observable
+                .Subscribe(
+                    it => Console.WriteLine($"{it}"),
+                    ex => Console.WriteLine($"{ex}"),
+                    () => Console.WriteLine("completed"));
         }
 
         private static void SubjectExample()

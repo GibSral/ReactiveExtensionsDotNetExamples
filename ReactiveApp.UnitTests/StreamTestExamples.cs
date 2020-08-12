@@ -42,13 +42,13 @@ namespace ReactiveApp.UnitTests
         {
             var testScheduler = new TestScheduler();
             var input = new Subject<string>();
-            var throttledInput = input.Delay(TimeSpan.FromTicks(2), testScheduler);
+            var delayedInput = input.Delay(TimeSpan.FromTicks(2), testScheduler);
             testScheduler.Schedule(TimeSpan.FromTicks(Subscribed + 1), () => input.OnNext("1"));
             testScheduler.Schedule(TimeSpan.FromTicks(Subscribed + 2), () => input.OnNext("2"));
             testScheduler.Schedule(TimeSpan.FromTicks(Subscribed + 10), () => input.OnNext("3"));
             testScheduler.Schedule(TimeSpan.FromTicks(Subscribed + 11), () => input.OnCompleted());
 
-            var testableObserver = testScheduler.Start(() => throttledInput, Created, Subscribed, Disposed);
+            var testableObserver = testScheduler.Start(() => delayedInput, Created, Subscribed, Disposed);
 
             var expectedMessage = new[]
             {
